@@ -1,10 +1,10 @@
 import sys
 from time import sleep
 import time
-from colorama import init # Importa a função init do colorama
+from colorama import init
 
-# Inicializa o colorama. Esta é a tentativa de correção de compatibilidade ANSI.
-# Se as cores de 256 bits ainda não funcionarem, a limitação é no terminal.
+# 1. Inicializa o colorama. Tenta forçar a compatibilidade ANSI (necessário no Windows).
+# Se as cores de 256 bits não aparecerem, é devido à limitação do seu terminal (mude para o Windows Terminal).
 init() 
 
 def apply_gradient(text):
@@ -19,14 +19,14 @@ def apply_gradient(text):
     """
     # Define a paleta de cores do gradiente (tons de vermelho e laranja, códigos 256 bits)
     colors = [
-        "\033[38;5;88m",    # vermelho escuro
-        "\033[38;5;130m",   # laranja avermelhado
-        "\033[38;5;94m",    # laranja
-        "\033[38;5;136m",   # laranja médio
-        "\033[38;5;166m",   # laranja escuro
-        "\033[38;5;202m",   # vermelho alaranjado
-        "\033[38;5;124m",   # vermelho
-        "\033[38;5;196m",   # vermelho vivo
+        "\033[38;5;88m",    # vermelho escuro (88)
+        "\033[38;5;130m",   # laranja avermelhado (130)
+        "\033[38;5;94m",    # laranja (94)
+        "\033[38;5;136m",   # laranja médio (136)
+        "\033[38;5;166m",   # laranja escuro (166)
+        "\033[38;5;202m",   # vermelho alaranjado (202)
+        "\033[38;5;124m",   # vermelho (124)
+        "\033[38;5;196m",   # vermelho vivo (196)
     ]
     
     gradient_text = ""
@@ -40,12 +40,12 @@ def apply_gradient(text):
 
 def print_lyrics():
     """
-    Imprime a letra da música com efeitos especiais:
-    - Exibe caractere por caractere com intervalos variáveis
-    - Aplica gradiente na palavra "Apocalypse"
-    - Tempos personalizados após cada linha
+    Imprime a letra da música com efeitos especiais (typing effect e gradiente).
+    - Exibe caractere por caractere com intervalos variáveis.
+    - Aplica gradiente na palavra "----".
+    - Pausas personalizadas após cada linha para simular o ritmo.
     """
-    # Lista de tuplas: (linha da letra, intervalo entre caracteres)
+    # linha da letra, intervalo entre caracteres
     lines = [
         ("Got the music in you, baby", 0.08), 
         ("tell me why", 0.08), 
@@ -63,21 +63,19 @@ def print_lyrics():
     delays = [0.1, 2, 0.3, 2, 0.2, 6.6, 1.2, 6.4, 1.2, 5]
 
     for i, (line, char_delay) in enumerate(lines):
-        # Aplica gradiente apenas em "Apocalypse"
+        # Aplica gradiente apenas na palavra-chave
         if "Apocalypse" in line:
             line = line.replace("Apocalypse", apply_gradient("Apocalypse"))
         
-        # Imprime cada caractere com intervalo
+        # Imprime cada caractere com um pequeno atraso
         for char in line:
             print(char, end='')
-            sys.stdout.flush()  # Força a impressão imediata
+            sys.stdout.flush()  # Garante que o caractere seja exibido imediatamente
             sleep(char_delay)   # Pausa entre caracteres
         
-        time.sleep(delays[i])   # Pausa após a linha completa
+        time.sleep(delays[i])   # Pausa mais longa após a linha completa
         print() # Quebra de linha
 
-    # ATENÇÃO: Isso cria um loop infinito
-    print_lyrics()  # Reinicia a música automaticamente
 
 # Inicia a animação das letras
 if __name__ == "__main__":
