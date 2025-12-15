@@ -1,34 +1,40 @@
-# Animação de Letras - "Apocalypse" do Cigarettes After Sex
+# 🎵 Animação de Letras - "Apocalypse" (Cigarettes After Sex)
 
 Este script Python cria uma animação no terminal da letra da música "Apocalypse" do Cigarettes After Sex, com efeitos visuais especiais.
 
 ## Funcionalidades
 
-- **Impressão caractere por caractere** com intervalos variáveis
-- **Efeito de gradiente de cores** na palavra "Apocalypse" (tons de vermelho/laranja)
-- **Pausas personalizadas** entre linhas para sincronizar com o ritmo da música
-- **Loop infinito** que reinicia automaticamente a música
+- **Impressão caractere por caractere** com intervalos variáveis (efeito 'typing').
+- **Efeito de gradiente de cores** na palavra "Apocalypse" (tons de vermelho/laranja).
+- **Pausas personalizadas** entre linhas para sincronizar com o ritmo da música.
+- **Execução única** da música (o loop infinito original foi removido para fins práticos).
 
 ## Como Funciona
 
 O script utiliza:
-- Códigos ANSI para o efeito de gradiente
-- `time.sleep()` para controle preciso dos tempos
-- `sys.stdout.flush()` para impressão imediata dos caracteres
+- **`colorama.init()`** para melhor compatibilidade com códigos ANSI no terminal (especialmente no Windows).
+- Códigos ANSI de 256 cores (`\033[38;5;...m`) para o efeito de gradiente.
+- `time.sleep()` para controle preciso dos tempos.
+- `sys.stdout.flush()` para impressão imediata dos caracteres.
 
 ## Requisitos
 
 - Python 3.x
-- Terminal com suporte a códigos ANSI de cores
+- **Biblioteca `colorama`**: `pip install colorama`
+- **Terminal Moderno**: Recomenda-se o **Windows Terminal** ou terminais Linux/macOS, pois terminais antigos podem não suportar o gradiente de 256 cores.
 
 ## Como Usar
 
-Execute o script normalmente:
-```bash
-python apocalypse_lyrics.py
-```
+1.  **Instale a biblioteca:**
+    ```bash
+    pip install colorama
+    ```
+2.  **Execute o script:**
+    ```bash
+    python apocalypse_lyrics.py
+    ```
 
-Para sair, pressione `Ctrl+C` (isso interromperá o loop infinito).
+Para parar a execução (caso o script esteja no meio da música), pressione `Ctrl+C`.
 
 ## Personalização
 
@@ -39,8 +45,8 @@ Você pode modificar facilmente:
 
 ## Exemplo de Saída
 
-O script exibirá a letra com a palavra "Apocalypse" em gradiente colorido, com cada caractere aparecendo em intervalos cuidadosamente cronometrados para combinar com o clima da música.
+O script exibirá a letra com a palavra "Apocalypse" em gradiente colorido, com cada caractere aparecendo em intervalos cuidadosamente cronometrados.
 
 ## Observação
 
-Este script foi criado para fins artísticos/entretenimento e contém um loop infinito por design.
+Este script foi modificado para execução única (sem loop) para melhor usabilidade no terminal.
