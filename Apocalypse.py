@@ -1,10 +1,15 @@
 import sys
 from time import sleep
 import time
+from colorama import init # Importa a função init do colorama
+
+# Inicializa o colorama. Esta é a tentativa de correção de compatibilidade ANSI.
+# Se as cores de 256 bits ainda não funcionarem, a limitação é no terminal.
+init() 
 
 def apply_gradient(text):
     """
-    Aplica um gradiente de cores ao texto fornecido
+    Aplica um gradiente de cores ao texto fornecido (tons de Vermelho/Laranja de 256 bits).
     
     Args:
         text (str): Texto que receberá o efeito de gradiente
@@ -12,21 +17,21 @@ def apply_gradient(text):
     Returns:
         str: Texto com códigos ANSI para as cores do gradiente
     """
-    # Define a paleta de cores do gradiente (tons de vermelho e laranja)
+    # Define a paleta de cores do gradiente (tons de vermelho e laranja, códigos 256 bits)
     colors = [
-        "\033[38;5;88m",   # vermelho escuro
-        "\033[38;5;130m",  # laranja avermelhado
-        "\033[38;5;94m",   # laranja
-        "\033[38;5;136m",  # laranja médio
-        "\033[38;5;166m", # laranja escuro
-        "\033[38;5;202m", # vermelho alaranjado
-        "\033[38;5;124m", # vermelho
-        "\033[38;5;196m", # vermelho vivo
+        "\033[38;5;88m",    # vermelho escuro
+        "\033[38;5;130m",   # laranja avermelhado
+        "\033[38;5;94m",    # laranja
+        "\033[38;5;136m",   # laranja médio
+        "\033[38;5;166m",   # laranja escuro
+        "\033[38;5;202m",   # vermelho alaranjado
+        "\033[38;5;124m",   # vermelho
+        "\033[38;5;196m",   # vermelho vivo
     ]
     
     gradient_text = ""
     for i, char in enumerate(text):
-        # Seleciona a cor baseado na posição do caractere
+        # Seleciona a cor baseado na posição do caractere (looping pela paleta)
         color = colors[i % len(colors)]
         gradient_text += color + char
         gradient_text += "\033[0m"  # Reseta a cor após cada caractere
@@ -69,10 +74,15 @@ def print_lyrics():
             sleep(char_delay)   # Pausa entre caracteres
         
         time.sleep(delays[i])   # Pausa após a linha completa
-        print()  # Quebra de linha
+        print() # Quebra de linha
 
     # ATENÇÃO: Isso cria um loop infinito
     print_lyrics()  # Reinicia a música automaticamente
 
 # Inicia a animação das letras
-print_lyrics()
+if __name__ == "__main__":
+    try:
+        print_lyrics()
+    except KeyboardInterrupt:
+        # Permite que o usuário saia pressionando Ctrl+C
+        print("\nAnimação interrompida.")
